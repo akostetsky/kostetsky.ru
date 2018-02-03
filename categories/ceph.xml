@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Alexander Kostetsky (Записи о ceph)</title><link>http://kostetsky.ru/</link><description></description><atom:link rel="self" type="application/rss+xml" href="http://kostetsky.ru/categories/ceph.xml"></atom:link><language>ru</language><copyright>Contents © 2018 &lt;a href="mailto:alexander@kostetsky.ru"&gt;Alexander Kostetsky&lt;/a&gt; </copyright><lastBuildDate>Sat, 03 Feb 2018 21:01:34 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Как узнать, чем занята OSD</title><link>http://kostetsky.ru/posts/ceph/how-to-find-out-what-the-osd-is-doing/</link><dc:creator>Alexander Kostetsky</dc:creator><description>&lt;div&gt;&lt;p&gt;Что бы узнать, чем занята OSD, нужно использовать следующий синтаксис:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;ceph daemon osd.&lt;span class="o"&gt;{&lt;/span&gt;id&lt;span class="o"&gt;}&lt;/span&gt; ops
+&lt;/pre&gt;
+
+
+&lt;p&gt;, где {id} - id osd.&lt;/p&gt;&lt;/div&gt;</description><category>ceph</category><category>osd</category><guid>http://kostetsky.ru/posts/ceph/how-to-find-out-what-the-osd-is-doing/</guid><pubDate>Sat, 03 Feb 2018 20:54:49 GMT</pubDate></item></channel></rss>
