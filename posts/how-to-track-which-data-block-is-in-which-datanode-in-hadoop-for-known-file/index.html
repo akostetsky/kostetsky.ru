@@ -17,7 +17,8 @@ article: http://ogp.me/ns/article#
 <meta property="og:site_name" content="Alexander Kostetsky">
 <meta property="og:title" content="Как узнать по именами файла на каких машинах расположены блоки данных.">
 <meta property="og:url" content="http://kostetsky.ru/posts/how-to-track-which-data-block-is-in-which-datanode-in-hadoop-for-known-file/">
-<meta property="og:description" content="">
+<meta property="og:description" content="$ sudo -u hdfs
+# hdfs fsck &lt;hdfs_file_path&gt; -locations -blocks -files">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2018-02-03T23:17:06+03:00">
 <meta property="article:tag" content="hadoop">
@@ -50,7 +51,9 @@ article: http://ogp.me/ns/article#
 
         </div>
         <div class="body">
-            <span></span>
+            <pre class="code literal-block"><span></span>$ sudo -u hdfs
+<span class="c1"># hdfs fsck &lt;hdfs_file_path&gt; -locations -blocks -files</span>
+</pre>
         </div>
                 <ul class="pager hidden-print">
 <li class="previous">
