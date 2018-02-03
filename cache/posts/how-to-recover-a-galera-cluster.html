@@ -1,0 +1,87 @@
+<p>Представим, что у нас есть обычный кластер MariaDB Galera Cluster из трех узлов.</p>
+<h2>Вариант №1</h2>
+<h3>Один из узлов был остановлен нормальным способом.</h3>
+<ul>
+<li>Node #1 - down</li>
+<li>Node #2 - up</li>
+<li>Node #3 - up</li>
+</ul>
+<p>Вы выключили узел <code>service mysql stop</code>, что-то поделали и после этого включили. После этого кластер востановится в автоматическом режиме.</p>
+<h2>Вариант №2</h2>
+<h3>Два узла были остановлены нормальным способом.</h3>
+<ul>
+<li>Node #1 - down</li>
+<li>Node #2 - down</li>
+<li>Node #3 - up</li>
+</ul>
+<p>Если у вас выключено два узла, а один работает в нормальном режиме. То нужно, запустить на первой и второй ноде mysql таким образом</p>
+<pre class="code literal-block"><span></span>service mysql start --wsrep_sst_donor<span class="o">=</span>&lt;wsrep_node_name&gt;
+</pre>
+
+
+<p>, где <code>wsrep_node_name</code> - по-умолчанию это имя сервера.</p>
+<h2>Вариант №3</h2>
+<h3>Все узлы были остановлены нормальным способом.</h3>
+<ul>
+<li>Node #1 - down</li>
+<li>Node #2 - down</li>
+<li>Node #3 - down</li>
+</ul>
+<p>Так получилось, что пришлось остановить все узлы кластера, что бы вернуть его в работу нужно. Сравнить значение <code>seqno</code> из файла <code>/var/lib/mysql/grastate.dat</code> на всех узлах. Узел на котором  <code>seqno</code> имеет наибольшее значение включаем первым,</p>
+<pre class="code literal-block"><span></span>service mysql start --wsrep_new_cluster
+</pre>
+
+
+<p>а следом за ним все остальные узлы кластера. </p>
+<h2>Вариант №4</h2>
+<h3>Один из узлов был остановлен в аварийном режиме.</h3>
+<ul>
+<li>Node #1 - crash</li>
+<li>Node #2 - up</li>
+<li>Node #3 - up</li>
+</ul>
+<p>Один узел аварийно завершил свою работу. После того, как вы запустите узел кластер восстановится в автоматическом режиме.</p>
+<h2>Вариант №5</h2>
+<h3>Два узла был остановлен в аварийном режиме.</h3>
+<ul>
+<li>Node #1 - crash</li>
+<li>Node #2 - crash</li>
+<li>Node #3 - up</li>
+</ul>
+<p>Остался один работающий узел, остальные были аварийно выключены. Нужно принудительно указать узлу, что он является основным узлом (Primary Component) кластере до того как будет включены остальные узлы. Нужно проверить еще раз то, что остальные узлы действительно выключены и после этого на узле запустить </p>
+<pre class="code literal-block"><span></span><span class="k">SET</span> <span class="k">GLOBAL</span> <span class="n">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
+</pre>
+
+
+<h2>Вариант №6</h2>
+<h3>Все узлы были остановлены в аварийном режиме.</h3>
+<ul>
+<li>Node #1 - crash</li>
+<li>Node #2 - crash</li>
+<li>Node #3 - crash</li>
+</ul>
+<p>На всех узлах кластера запускается  </p>
+<pre class="code literal-block"><span></span>mysqld_safe --wsrep-recover
+</pre>
+
+
+<p>в выводе будет что-то вроде </p>
+<pre class="code literal-block"><span></span>node-1 mysqld_safe: WSREP: Recovered position ab5647ad-30ab-11e5-9b46-5faf62b316fb:379405932
+</pre>
+
+
+<p>, где </p>
+<ul>
+<li>ab5647ad-30ab-11e5-9b46-5faf62b316fb - uuid узла</li>
+<li>379410507 - значение wsrep позиции. </li>
+</ul>
+<p>Находим узел на которым были последние изменения, включаем первым,</p>
+<pre class="code literal-block"><span></span>service mysql start --wsrep_new_cluster
+</pre>
+
+
+<p>а следом за ним все остальные узлы кластера.</p>
+<h2>Вариант №7</h2>
+<h3>Ситуация split brain</h3>
+<p>Что бы такой ситуации не было нужно, что бы число узлов в кластере было нечетным. Лучший способ использовать <a href="http://galeracluster.com/documentation-webpages/arbitrator.html">arbitrator</a>.</p>
+<p>­</p>
