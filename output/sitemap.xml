@@ -7,50 +7,42 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>http://kostetsky.ru/</loc>
-  <lastmod>2018-02-03T18:50:00Z</lastmod>
+  <lastmod>2018-02-03T19:25:00Z</lastmod>
  </url>
  <url>
   <loc>http://kostetsky.ru/2016/</loc>
-  <lastmod>2018-02-03T18:50:00Z</lastmod>
+  <lastmod>2018-02-03T19:25:00Z</lastmod>
  </url>
  <url>
   <loc>http://kostetsky.ru/archive.html</loc>
-  <lastmod>2018-02-03T19:03:00Z</lastmod>
+  <lastmod>2018-02-03T19:25:00Z</lastmod>
  </url>
  <url>
   <loc>http://kostetsky.ru/categories/</loc>
-  <lastmod>2018-02-03T18:50:00Z</lastmod>
+  <lastmod>2018-02-03T19:25:00Z</lastmod>
  </url>
  <url>
   <loc>http://kostetsky.ru/categories/cat_mysql/</loc>
-  <lastmod>2018-02-03T18:50:00Z</lastmod>
+  <lastmod>2018-02-03T19:25:00Z</lastmod>
  </url>
  <url>
   <loc>http://kostetsky.ru/categories/galera/</loc>
-  <lastmod>2018-02-03T18:50:00Z</lastmod>
+  <lastmod>2018-02-03T19:25:00Z</lastmod>
  </url>
  <url>
   <loc>http://kostetsky.ru/categories/mysql/</loc>
-  <lastmod>2018-02-03T18:50:00Z</lastmod>
- </url>
- <url>
-  <loc>http://kostetsky.ru/galleries/</loc>
-  <lastmod>2018-02-03T18:41:00Z</lastmod>
- </url>
- <url>
-  <loc>http://kostetsky.ru/listings/</loc>
-  <lastmod>2018-02-03T18:41:00Z</lastmod>
+  <lastmod>2018-02-03T19:25:00Z</lastmod>
  </url>
  <url>
   <loc>http://kostetsky.ru/pages/about/</loc>
-  <lastmod>2018-02-03T18:46:00Z</lastmod>
+  <lastmod>2018-02-03T19:25:00Z</lastmod>
  </url>
  <url>
   <loc>http://kostetsky.ru/posts/how-to-recover-a-galera-cluster/</loc>
-  <lastmod>2018-02-03T18:50:00Z</lastmod>
+  <lastmod>2018-02-03T19:25:00Z</lastmod>
  </url>
  <url>
   <loc>http://kostetsky.ru/stories/about/</loc>
-  <lastmod>2018-02-03T18:49:00Z</lastmod>
+  <lastmod>2018-02-03T19:25:00Z</lastmod>
  </url>
 </urlset>
