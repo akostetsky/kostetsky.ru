@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>http://kostetsky.ru/categories/cat_hadoop.xml</loc>
-  <lastmod>2018-02-03T20:28:00Z</lastmod>
+  <lastmod>2018-02-03T20:32:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://kostetsky.ru/categories/cat_mysql.xml</loc>
@@ -19,11 +19,11 @@
  </sitemap>
  <sitemap>
   <loc>http://kostetsky.ru/categories/hadoop.xml</loc>
-  <lastmod>2018-02-03T20:28:00Z</lastmod>
+  <lastmod>2018-02-03T20:32:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://kostetsky.ru/categories/hdfs.xml</loc>
-  <lastmod>2018-02-03T20:28:00Z</lastmod>
+  <lastmod>2018-02-03T20:32:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://kostetsky.ru/categories/mysql.xml</loc>
@@ -31,10 +31,10 @@
  </sitemap>
  <sitemap>
   <loc>http://kostetsky.ru/rss.xml</loc>
-  <lastmod>2018-02-03T20:28:00Z</lastmod>
+  <lastmod>2018-02-03T20:32:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://kostetsky.ru/sitemap.xml</loc>
-  <lastmod>2018-02-03T20:28:00Z</lastmod>
+  <lastmod>2018-02-03T20:48:00Z</lastmod>
  </sitemap>
 </sitemapindex>
