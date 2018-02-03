@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html prefix="
+og: http://ogp.me/ns#
+article: http://ogp.me/ns/article#
+" lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Как восстановить Galera Cluster for MySQL | Alexander Kostetsky</title>
+<link href="../../assets/css/bitter.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/main.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/rst.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/code.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="http://kostetsky.ru/posts/how-to-recover-a-galera-cluster/">
+<!--[if lt IE 9]><script src="/assets/js/html5.js"></script><![endif]--><meta name="author" content="Alexander Kostetsky">
+<meta property="og:site_name" content="Alexander Kostetsky">
+<meta property="og:title" content="Как восстановить Galera Cluster for MySQL">
+<meta property="og:url" content="http://kostetsky.ru/posts/how-to-recover-a-galera-cluster/">
+<meta property="og:description" content="Представим, что у нас есть обычный кластер MariaDB Galera Cluster из трех узлов.
+Вариант №1
+Один из узлов был остановлен нормальным способом.
+
+Node #1 - down
+Node #2 - up
+Node #3 - up
+
+Вы выключили уз">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2016-02-20T15:24:51+03:00">
+<meta property="article:tag" content="galera">
+<meta property="article:tag" content="mysql">
+</head>
+<body>
+    <section class="social"><ul>
+<li><a href="../../index.html" title="Home"><i class="icon-home"></i></a></li>
+            <li><a href="../../archive.html" title="Archives"><i class="icon-folder-open-alt"></i></a></li>
+            <li><a href="../../categories/index.html" title="Tags"><i class="icon-tags"></i></a></li>
+            <li><a href="../../rss.xml" title="RSS"><i class="icon-rss"></i></a></li>
+            <li><a href="../../pages/about/index.html" title="About me"><i class="icon-user"></i></a></li>
+            <li><a href="https://github.com/akostetsky" title="My Github"><i class="icon-github"></i></a></li>
+
+        </ul></section><section class="page-content"><div class="content" rel="main">
+    <div class="post">
+        <h1 class="p-name entry-title" itemprop="headline name">Как восстановить Galera Cluster for MySQL</h1>
+
+        <div class="meta">
+            <div class="authordate">
+                <time class="timeago" datetime="2016-02-20T15:24:51+03:00">2016-02-20 15:24</time>
+</div>
+                    <div itemprop="keywords" class="tags">
+        <ul>
+        Тэги : 
+           <li><a class="tag p-category" href="../../categories/galera/" rel="tag">galera</a></li>
+           <li><a class="tag p-category" href="../../categories/mysql/" rel="tag">mysql</a></li>
+        </ul>
+</div>
+
+        </div>
+        <div class="body">
+            <div>
+<p>Представим, что у нас есть обычный кластер MariaDB Galera Cluster из трех узлов.</p>
+<h3>Вариант №1</h3>
+<h4>Один из узлов был остановлен нормальным способом.</h4>
+<ul>
+<li>Node #1 - down</li>
+<li>Node #2 - up</li>
+<li>Node #3 - up</li>
+</ul>
+<p>Вы выключили узел <code>service mysql stop</code>, что-то поделали и после этого включили. После этого кластер востановится в автоматическом режиме.</p>
+<h3>Вариант №2</h3>
+<h4>Два узла были остановлены нормальным способом.</h4>
+<ul>
+<li>Node #1 - down</li>
+<li>Node #2 - down</li>
+<li>Node #3 - up</li>
+</ul>
+<p>Если у вас выключено два узла, а один работает в нормальном режиме. То нужно, запустить на первой и второй ноде mysql таким образом</p>
+<pre class="code literal-block"><span></span>service mysql start --wsrep_sst_donor<span class="o">=</span>&lt;wsrep_node_name&gt;
+</pre>
+
+
+<p>, где <code>wsrep_node_name</code> - по-умолчанию это имя сервера.</p>
+<h3>Вариант №3</h3>
+<h4>Все узлы были остановлены нормальным способом.</h4>
+<ul>
+<li>Node #1 - down</li>
+<li>Node #2 - down</li>
+<li>Node #3 - down</li>
+</ul>
+<p>Так получилось, что пришлось остановить все узлы кластера, что бы вернуть его в работу нужно. Сравнить значение <code>seqno</code> из файла <code>/var/lib/mysql/grastate.dat</code> на всех узлах. Узел на котором  <code>seqno</code> имеет наибольшее значение включаем первым,</p>
+<pre class="code literal-block"><span></span>service mysql start --wsrep_new_cluster
+</pre>
+
+
+<p>а следом за ним все остальные узлы кластера. </p>
+<h3>Вариант №4</h3>
+<h4>Один из узлов был остановлен в аварийном режиме.</h4>
+<ul>
+<li>Node #1 - crash</li>
+<li>Node #2 - up</li>
+<li>Node #3 - up</li>
+</ul>
+<p>Один узел аварийно завершил свою работу. После того, как вы запустите узел кластер восстановится в автоматическом режиме.</p>
+<h3>Вариант №5</h3>
+<h4>Два узла был остановлен в аварийном режиме.</h4>
+<ul>
+<li>Node #1 - crash</li>
+<li>Node #2 - crash</li>
+<li>Node #3 - up</li>
+</ul>
+<p>Остался один работающий узел, остальные были аварийно выключены. Нужно принудительно указать узлу, что он является основным узлом (Primary Component) кластере до того как будет включены остальные узлы. Нужно проверить еще раз то, что остальные узлы действительно выключены и после этого на узле запустить </p>
+<pre class="code literal-block"><span></span><span class="k">SET</span> <span class="k">GLOBAL</span> <span class="n">wsrep_provider_options</span><span class="o">=</span><span class="s1">'pc.bootstrap=true'</span><span class="p">;</span>
+</pre>
+
+
+<h3>Вариант №6</h3>
+<h4>Все узлы были остановлены в аварийном режиме.</h4>
+<ul>
+<li>Node #1 - crash</li>
+<li>Node #2 - crash</li>
+<li>Node #3 - crash</li>
+</ul>
+<p>На всех узлах кластера запускается  </p>
+<pre class="code literal-block"><span></span>mysqld_safe --wsrep-recover
+</pre>
+
+
+<p>в выводе будет что-то вроде </p>
+<pre class="code literal-block"><span></span>node-1 mysqld_safe: WSREP: Recovered position ab5647ad-30ab-11e5-9b46-5faf62b316fb:379405932
+</pre>
+
+
+<p>, где </p>
+<ul>
+<li>ab5647ad-30ab-11e5-9b46-5faf62b316fb - uuid узла</li>
+<li>379410507 - значение wsrep позиции. </li>
+</ul>
+<p>Находим узел на которым были последние изменения, включаем первым,</p>
+<pre class="code literal-block"><span></span>service mysql start --wsrep_new_cluster
+</pre>
+
+
+<p>а следом за ним все остальные узлы кластера.</p>
+<h3>Вариант №7</h3>
+<h4>Ситуация split brain</h4>
+<p>Что бы такой ситуации не было нужно, что бы число узлов в кластере было нечетным. Лучший способ использовать <a href="http://galeracluster.com/documentation-webpages/arbitrator.html">arbitrator</a>.</p>
+<p>­</p>
+</div>
+        </div>
+        
+                            <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="alexanderkostetsky",
+            disqus_url="http://kostetsky.ru/posts/how-to-recover-a-galera-cluster/",
+        disqus_title="\u041a\u0430\u043a \u0432\u043e\u0441\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c Galera Cluster for MySQL",
+        disqus_identifier="cache/posts/how-to-recover-a-galera-cluster.html",
+        disqus_config = function () {
+            this.language = "ru";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+            
+
+    </div>
+               <script>var disqus_shortname="alexanderkostetsky";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2018         Alexander Kostetsky - Powered by         Nikola         </p>
+            
+        </footer>
+</div>
+    </section><script src="../../assets/js/jquery-1.10.2.min.js" type="text/javascript"></script><script src="../../assets/js/jquery.timeago.js" type="text/javascript"></script><script type="text/javascript">
+            $(function(){
+                $('.timeago').timeago();
+            });
+        </script>
+</body>
+</html>

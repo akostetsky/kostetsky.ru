@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Alexander Kostetsky (Записи о mysql)</title><link>http://kostetsky.ru/</link><description></description><atom:link type="application/rss+xml" href="http://kostetsky.ru/categories/cat_mysql.xml" rel="self"></atom:link><language>ru</language><copyright>Contents © 2018 &lt;a href="mailto:alexander@kostetsky.ru"&gt;Alexander Kostetsky&lt;/a&gt; </copyright><lastBuildDate>Sat, 03 Feb 2018 19:02:17 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Как восстановить Galera Cluster for MySQL</title><link>http://kostetsky.ru/posts/how-to-recover-a-galera-cluster/</link><dc:creator>Alexander Kostetsky</dc:creator><description>&lt;div&gt;&lt;p&gt;Представим, что у нас есть обычный кластер MariaDB Galera Cluster из трех узлов.&lt;/p&gt;
+&lt;h3&gt;Вариант №1&lt;/h3&gt;
+&lt;h4&gt;Один из узлов был остановлен нормальным способом.&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Node #1 - down&lt;/li&gt;
+&lt;li&gt;Node #2 - up&lt;/li&gt;
+&lt;li&gt;Node #3 - up&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Вы выключили узел &lt;code&gt;service mysql stop&lt;/code&gt;, что-то поделали и после этого включили. После этого кластер востановится в автоматическом режиме.&lt;/p&gt;
+&lt;h3&gt;Вариант №2&lt;/h3&gt;
+&lt;h4&gt;Два узла были остановлены нормальным способом.&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Node #1 - down&lt;/li&gt;
+&lt;li&gt;Node #2 - down&lt;/li&gt;
+&lt;li&gt;Node #3 - up&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Если у вас выключено два узла, а один работает в нормальном режиме. То нужно, запустить на первой и второй ноде mysql таким образом&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;service mysql start --wsrep_sst_donor&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;wsrep_node_name&amp;gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;, где &lt;code&gt;wsrep_node_name&lt;/code&gt; - по-умолчанию это имя сервера.&lt;/p&gt;
+&lt;h3&gt;Вариант №3&lt;/h3&gt;
+&lt;h4&gt;Все узлы были остановлены нормальным способом.&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Node #1 - down&lt;/li&gt;
+&lt;li&gt;Node #2 - down&lt;/li&gt;
+&lt;li&gt;Node #3 - down&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Так получилось, что пришлось остановить все узлы кластера, что бы вернуть его в работу нужно. Сравнить значение &lt;code&gt;seqno&lt;/code&gt; из файла &lt;code&gt;/var/lib/mysql/grastate.dat&lt;/code&gt; на всех узлах. Узел на котором  &lt;code&gt;seqno&lt;/code&gt; имеет наибольшее значение включаем первым,&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;service mysql start --wsrep_new_cluster
+&lt;/pre&gt;
+
+
+&lt;p&gt;а следом за ним все остальные узлы кластера. &lt;/p&gt;
+&lt;h3&gt;Вариант №4&lt;/h3&gt;
+&lt;h4&gt;Один из узлов был остановлен в аварийном режиме.&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Node #1 - crash&lt;/li&gt;
+&lt;li&gt;Node #2 - up&lt;/li&gt;
+&lt;li&gt;Node #3 - up&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Один узел аварийно завершил свою работу. После того, как вы запустите узел кластер восстановится в автоматическом режиме.&lt;/p&gt;
+&lt;h3&gt;Вариант №5&lt;/h3&gt;
+&lt;h4&gt;Два узла был остановлен в аварийном режиме.&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Node #1 - crash&lt;/li&gt;
+&lt;li&gt;Node #2 - crash&lt;/li&gt;
+&lt;li&gt;Node #3 - up&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Остался один работающий узел, остальные были аварийно выключены. Нужно принудительно указать узлу, что он является основным узлом (Primary Component) кластере до того как будет включены остальные узлы. Нужно проверить еще раз то, что остальные узлы действительно выключены и после этого на узле запустить &lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;SET&lt;/span&gt; &lt;span class="k"&gt;GLOBAL&lt;/span&gt; &lt;span class="n"&gt;wsrep_provider_options&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'pc.bootstrap=true'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Вариант №6&lt;/h3&gt;
+&lt;h4&gt;Все узлы были остановлены в аварийном режиме.&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Node #1 - crash&lt;/li&gt;
+&lt;li&gt;Node #2 - crash&lt;/li&gt;
+&lt;li&gt;Node #3 - crash&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;На всех узлах кластера запускается  &lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;mysqld_safe --wsrep-recover
+&lt;/pre&gt;
+
+
+&lt;p&gt;в выводе будет что-то вроде &lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;node-1 mysqld_safe: WSREP: Recovered position ab5647ad-30ab-11e5-9b46-5faf62b316fb:379405932
+&lt;/pre&gt;
+
+
+&lt;p&gt;, где &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ab5647ad-30ab-11e5-9b46-5faf62b316fb - uuid узла&lt;/li&gt;
+&lt;li&gt;379410507 - значение wsrep позиции. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Находим узел на которым были последние изменения, включаем первым,&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;service mysql start --wsrep_new_cluster
+&lt;/pre&gt;
+
+
+&lt;p&gt;а следом за ним все остальные узлы кластера.&lt;/p&gt;
+&lt;h3&gt;Вариант №7&lt;/h3&gt;
+&lt;h4&gt;Ситуация split brain&lt;/h4&gt;
+&lt;p&gt;Что бы такой ситуации не было нужно, что бы число узлов в кластере было нечетным. Лучший способ использовать &lt;a href="http://galeracluster.com/documentation-webpages/arbitrator.html"&gt;arbitrator&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;­&lt;/p&gt;&lt;/div&gt;</description><category>galera</category><category>mysql</category><guid>http://kostetsky.ru/posts/how-to-recover-a-galera-cluster/</guid><pubDate>Sat, 20 Feb 2016 12:24:51 GMT</pubDate></item></channel></rss>
