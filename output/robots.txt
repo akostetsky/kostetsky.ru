@@ -1,4 +1,0 @@
-Sitemap: http://kostetsky.ru/sitemapindex.xml
-
-User-Agent: *
-Host: kostetsky.ru
