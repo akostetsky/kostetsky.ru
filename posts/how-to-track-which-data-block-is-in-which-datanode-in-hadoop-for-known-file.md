@@ -8,6 +8,7 @@
 .. description: 
 .. type: text
 -->
+
 ```sh
 $ sudo -u hdfs
 # hdfs fsck <hdfs_file_path> -locations -blocks -files
