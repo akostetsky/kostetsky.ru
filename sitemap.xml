@@ -7,19 +7,27 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>http://kostetsky.ru/</loc>
-  <lastmod>2018-02-03T19:25:00Z</lastmod>
+  <lastmod>2018-02-03T20:28:00Z</lastmod>
  </url>
  <url>
   <loc>http://kostetsky.ru/2016/</loc>
   <lastmod>2018-02-03T19:25:00Z</lastmod>
  </url>
  <url>
+  <loc>http://kostetsky.ru/2018/</loc>
+  <lastmod>2018-02-03T20:28:00Z</lastmod>
+ </url>
+ <url>
   <loc>http://kostetsky.ru/archive.html</loc>
-  <lastmod>2018-02-03T19:25:00Z</lastmod>
+  <lastmod>2018-02-03T20:28:00Z</lastmod>
  </url>
  <url>
   <loc>http://kostetsky.ru/categories/</loc>
-  <lastmod>2018-02-03T19:25:00Z</lastmod>
+  <lastmod>2018-02-03T20:28:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://kostetsky.ru/categories/cat_hadoop/</loc>
+  <lastmod>2018-02-03T20:28:00Z</lastmod>
  </url>
  <url>
   <loc>http://kostetsky.ru/categories/cat_mysql/</loc>
@@ -28,6 +36,14 @@
  <url>
   <loc>http://kostetsky.ru/categories/galera/</loc>
   <lastmod>2018-02-03T19:25:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://kostetsky.ru/categories/hadoop/</loc>
+  <lastmod>2018-02-03T20:28:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://kostetsky.ru/categories/hdfs/</loc>
+  <lastmod>2018-02-03T20:28:00Z</lastmod>
  </url>
  <url>
   <loc>http://kostetsky.ru/categories/mysql/</loc>
@@ -40,6 +56,10 @@
  <url>
   <loc>http://kostetsky.ru/posts/how-to-recover-a-galera-cluster/</loc>
   <lastmod>2018-02-03T19:25:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://kostetsky.ru/posts/how-to-track-which-data-block-is-in-which-datanode-in-hadoop-for-known-file/</loc>
+  <lastmod>2018-02-03T20:28:00Z</lastmod>
  </url>
  <url>
   <loc>http://kostetsky.ru/stories/about/</loc>
