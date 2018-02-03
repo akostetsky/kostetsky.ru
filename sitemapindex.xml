@@ -7,26 +7,22 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>http://kostetsky.ru/categories/cat_mysql.xml</loc>
-  <lastmod>2018-02-03T19:02:00Z</lastmod>
+  <lastmod>2018-02-03T19:25:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://kostetsky.ru/categories/galera.xml</loc>
-  <lastmod>2018-02-03T19:02:00Z</lastmod>
+  <lastmod>2018-02-03T19:25:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://kostetsky.ru/categories/mysql.xml</loc>
-  <lastmod>2018-02-03T19:02:00Z</lastmod>
- </sitemap>
- <sitemap>
-  <loc>http://kostetsky.ru/galleries/rss.xml</loc>
-  <lastmod>2018-02-03T19:03:00Z</lastmod>
+  <lastmod>2018-02-03T19:25:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://kostetsky.ru/rss.xml</loc>
-  <lastmod>2018-02-03T19:02:00Z</lastmod>
+  <lastmod>2018-02-03T19:25:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://kostetsky.ru/sitemap.xml</loc>
-  <lastmod>2018-02-03T19:03:00Z</lastmod>
+  <lastmod>2018-02-03T19:27:00Z</lastmod>
  </sitemap>
 </sitemapindex>
