@@ -32,8 +32,8 @@ disqusShortname = "alexanderkostetskiy"
   dateFormat = "2006-01-02 15:04"
   # Include any custom CSS and/or JS files
   # (relative to /static folder)
-  custom_css = ["css/my.css"]
-  custom_js = ["js/my.js"]
+  #custom_css = ["css/my.css"]
+  #custom_js = ["js/my.js"]
 
   [params.piwikAnalytics]
     siteid = 2

@@ -2,14 +2,14 @@
 title: Калибровочные кадры ( Lights, Darks, Flats, Dark flats and Bias )
 date: 2021-07-31T19:15:00+03:00
 tags:
-  - astrophotography
-  - lights frames
-  - darks frames
-  - flats frames
-  - bias frames
-  - dark flats frames
+  - Astrophotography
+  - Lights frames
+  - Darks frames
+  - Flats frames
+  - Bias frames
+  - Dark flats frames
 topics:
-  - astrophotography
+  - Astrophotography
 summary: Калибровочные кадры для астрофотографии. Как сделать Lights, Darks, Flats и Bias кадры
 ---
 # Что такое калибровочные кадры?

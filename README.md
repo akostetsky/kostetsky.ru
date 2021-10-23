@@ -3,33 +3,14 @@
 ## Setup ##
 
 ```sh
-git clone git@bitbucket.org:akostetskiy/kostetsky.ru.git
+git clone git@github.com:akostetsky/kostetsky.ru.git
 cd kostetsky.ru
-conda env create -f environment.yml
-conda activate pelican
-```
-
-## Env activate ##
-```sh
-conda activate pelican
+choco install hugo -confirm
 ```
 
 ## Automatically reload browser tab upon file modification. 
 ```sh
-invoke livereload
+hugo server --disableFastRender
 ```    
-
-## Upgrading ##
-```sh
-conda env update --name=pelican --file=environment.yml
-```
-
-## Build ##
-```sh
-invoke build
-```
-
 ## Publish ##
-```sh
-invoke publish
-```
+Just commit
